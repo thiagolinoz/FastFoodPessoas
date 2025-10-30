@@ -1,11 +1,11 @@
 services:
-  mariadb:
-    image: 'mariadb:latest'
+  mysql:
+    image: 'mysql:latest'
     environment:
-      - 'MARIADB_DATABASE=fiap-fastfood'
-      - 'MARIADB_PASSWORD=fiap'
-      - 'MARIADB_ROOT_PASSWORD=rootfiap'
-      - 'MARIADB_USER=fiap'
+      - 'MYSQL_DATABASE=fiap-fastfood'
+      - 'MYSQL_PASSWORD=fiap'
+      - 'MYSQL_ROOT_PASSWORD=rootfiap'
+      - 'MYSQL_USER=fiap'
     ports:
       - '3306:3306'
 
