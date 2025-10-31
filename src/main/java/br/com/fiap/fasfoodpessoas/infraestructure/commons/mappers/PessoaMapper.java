@@ -1,7 +1,7 @@
 package br.com.fiap.fasfoodpessoas.infraestructure.commons.mappers;
 
 import br.com.fiap.fasfoodpessoas.domain.models.PessoaModel;
-import br.com.fiap.fasfoodpessoas.infraestructure.persistence.jpa.entities.PessoaEntity;
+import br.com.fiap.fasfoodpessoas.infraestructure.persistence.entities.PessoaEntity;
 
 public class PessoaMapper {
 

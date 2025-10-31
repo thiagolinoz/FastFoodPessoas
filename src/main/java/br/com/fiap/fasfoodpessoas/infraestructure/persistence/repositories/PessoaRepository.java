@@ -1,33 +1,34 @@
-package br.com.fiap.fasfoodpessoas.infraestructure.persistence.jpa.repositories;
+package br.com.fiap.fasfoodpessoas.infraestructure.persistence.repositories;
 
 import br.com.fiap.fasfoodpessoas.domain.models.PessoaModel;
 import br.com.fiap.fasfoodpessoas.domain.ports.out.PessoaRepositoryPort;
 import br.com.fiap.fasfoodpessoas.infraestructure.commons.mappers.PessoaMapper;
-import br.com.fiap.fasfoodpessoas.infraestructure.persistence.jpa.entities.PessoaEntity;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import br.com.fiap.fasfoodpessoas.infraestructure.persistence.entities.PessoaEntity;
+import br.com.fiap.fasfoodpessoas.infraestructure.persistence.repositories.mongo.PessoaMongoDBRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-@Repository
+@Component
 public class PessoaRepository implements PessoaRepositoryPort {
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    private final PessoaMongoDBRepository pessoaMongoDBRepository;
+
+
+    public PessoaRepository(PessoaMongoDBRepository pessoaMongoDBRepository) {
+        this.pessoaMongoDBRepository = pessoaMongoDBRepository;
+    }
 
     @Override
-    @Transactional
     public PessoaModel cadastrarPessoa(PessoaModel pessoaModel) {
         PessoaEntity pessoaEntity = PessoaMapper.toEntity(pessoaModel);
-        entityManager.merge(pessoaEntity);
+        pessoaMongoDBRepository.save(pessoaEntity);
         return PessoaMapper.toModel(pessoaEntity);
     }
 
     @Override
     public Optional<PessoaModel> buscarPessoaPorCpf(String cdDocPessoa) {
-        PessoaEntity pessoaEntity = entityManager.find(PessoaEntity.class, cdDocPessoa);
+        PessoaEntity pessoaEntity = pessoaMongoDBRepository.findByCdDocPessoa(cdDocPessoa);
         return Optional.ofNullable(pessoaEntity).map(PessoaMapper::toModel);
     }
 }

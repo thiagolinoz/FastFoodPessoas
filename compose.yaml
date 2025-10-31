@@ -1,13 +1,25 @@
 services:
-  mysql:
-    image: 'mysql:latest'
+#  mysql:
+#    image: 'mysql:latest'
+#    environment:
+#      - 'MYSQL_DATABASE=fiap-fastfood'
+#      - 'MYSQL_PASSWORD=fiap'
+#      - 'MYSQL_ROOT_PASSWORD=rootfiap'
+#      - 'MYSQL_USER=fiap'
+#    ports:
+#      - '3306:3306'
+  documentdb:
+    image: 'ghcr.io/microsoft/documentdb/documentdb-local:latest'
     environment:
-      - 'MYSQL_DATABASE=fiap-fastfood'
-      - 'MYSQL_PASSWORD=fiap'
-      - 'MYSQL_ROOT_PASSWORD=rootfiap'
-      - 'MYSQL_USER=fiap'
+      - 'USERNAME=fiap'
+      - 'PASSWORD=fiap'
+      - 'DATA_PATH=/data'
     ports:
-      - '3306:3306'
+      - '10260:10260'
+    volumes:
+      - documentdb_data:/data
+volumes:
+  documentdb_data:
 
 # SE QUISERERM ATIVAR A PERSISTENCIA DO BANCO NO SISTEMA DE ARQUIVOS. DESCOMENTE AS DUAS LINHAS REFERENTE AO VOLUME
 # PARA REVERTER A MUDANÇA, É NECESSÁRIO PARAR, REMOVER E INICIAR O CONTAINER NOVAMENTE. APENAS PARAR O CONTAINER

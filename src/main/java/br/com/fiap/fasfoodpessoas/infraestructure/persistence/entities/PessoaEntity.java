@@ -1,25 +1,27 @@
-package br.com.fiap.fasfoodpessoas.infraestructure.persistence.jpa.entities;
+package br.com.fiap.fasfoodpessoas.infraestructure.persistence.entities;
 
 import br.com.fiap.fasfoodpessoas.domain.enums.TipoPessoaEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tb_pessoas")
+@Document(collation = "pessoas")
 public class PessoaEntity {
 
     @Id
-    @Column(name = "cd_doc_pessoa", nullable = false, unique = true)
+    private String id;
+    //@Column(name = "cd_doc_pessoa", nullable = false, unique = true)
     private String cdDocPessoa;
-    @Column(name = "nm_pessoa", nullable = false)
+    //@Column(name = "nm_pessoa", nullable = false)
     private String nmPessoa;
-    @Enumerated(EnumType.STRING)
-    @Column(name = "tp_pessoa", nullable = false)
+    //@Enumerated(EnumType.STRING)
+    //@Column(name = "tp_pessoa", nullable = false)
     private TipoPessoaEnum tpPessoa;
-    @Column(name = "ds_email", nullable = false)
+    //@Column(name = "ds_email", nullable = false)
     private String dsEmail;
 
     public String getCdDocPessoa() {
