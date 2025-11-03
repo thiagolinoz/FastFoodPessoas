@@ -1,13 +1,4 @@
 services:
-#  mysql:
-#    image: 'mysql:latest'
-#    environment:
-#      - 'MYSQL_DATABASE=fiap-fastfood'
-#      - 'MYSQL_PASSWORD=fiap'
-#      - 'MYSQL_ROOT_PASSWORD=rootfiap'
-#      - 'MYSQL_USER=fiap'
-#    ports:
-#      - '3306:3306'
   documentdb:
     image: 'ghcr.io/microsoft/documentdb/documentdb-local:latest'
     environment:
@@ -20,13 +11,3 @@ services:
       - documentdb_data:/data
 volumes:
   documentdb_data:
-
-# SE QUISERERM ATIVAR A PERSISTENCIA DO BANCO NO SISTEMA DE ARQUIVOS. DESCOMENTE AS DUAS LINHAS REFERENTE AO VOLUME
-# PARA REVERTER A MUDANÇA, É NECESSÁRIO PARAR, REMOVER E INICIAR O CONTAINER NOVAMENTE. APENAS PARAR O CONTAINER
-# AO INICIAR, SERÃO APRESENTADOS ERROS NA INICIALIZAÇÃO DO CONTAINER
-# COMANDOS:
-#    LISTAR O CONTAINER: docker ps
-#    PARAR O CONTAINER: docker stop <ID do Container>
-#    REMOVER O CONTAINER: docker container rm <ID do Container>
-#    volumes:
-#      - ./mariadb/data:/var/lib/mysql
