@@ -1,0 +1,7 @@
+services:
+  fiap-fastfood:
+    build: .
+    container_name: fiap-fastfood
+    restart: no
+    ports:
+      - 8088:8080
