@@ -43,5 +43,5 @@ jobs:
           mvn -B -DskipTests=true verify sonar:sonar \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-            -Dsonar.projectKey=YOUR_PROJECT_KEY \
-            -Dsonar.organization=YOUR_SONARCLOUD_ORGANIZATION
+            -Dsonar.projectKey=env.YOUR_PROJECT_KEY \
+            -Dsonar.organization=env.YOUR_SONARCLOUD_ORGANIZATION
