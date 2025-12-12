@@ -33,8 +33,9 @@ jobs:
 
       - name: Build and analyze with Maven
         run: |
-          mvn -B -DskipTests=true verify sonar:sonar \
+          mvn -B -DskipTests=false verify jacoco:report sonar:sonar \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=${{ env.SONAR_TOKEN }} \
             -Dsonar.projectKey=${{ env.YOUR_PROJECT_KEY }} \
-            -Dsonar.organization=${{ env.YOUR_SONARCLOUD_ORGANIZATION }}
+            -Dsonar.organization=${{ env.YOUR_SONARCLOUD_ORGANIZATION }} \
+            -Dsonar.coverage.jacoco.xmlReportPaths=target/jacoco-report/jacoco.xml,target/site/jacoco/jacoco.xml
