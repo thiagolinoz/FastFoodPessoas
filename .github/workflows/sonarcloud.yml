@@ -9,6 +9,7 @@ on:
 env:
   YOUR_PROJECT_KEY: FastFoodPessoas
   YOUR_SONARCLOUD_ORGANIZATION: thiagolinoz
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 jobs:
   sonarcloud:
@@ -30,18 +31,10 @@ jobs:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
 
-      - name: SonarCloud Action (autenticação / PR decoration)
-        uses: SonarSource/sonarcloud-github-action@v1
-        with:
-          organization: "thiagolinoz"
-          token: ${{ secrets.SONAR_TOKEN }}
-
       - name: Build and analyze with Maven
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           mvn -B -DskipTests=true verify sonar:sonar \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=${{ env.SONAR_TOKEN }} \
-            -Dsonar.projectKey=env.YOUR_PROJECT_KEY \
-            -Dsonar.organization=env.YOUR_SONARCLOUD_ORGANIZATION
+            -Dsonar.projectKey=${{ env.YOUR_PROJECT_KEY }} \
+            -Dsonar.organization=${{ env.YOUR_SONARCLOUD_ORGANIZATION }}
