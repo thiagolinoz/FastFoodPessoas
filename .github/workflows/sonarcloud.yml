@@ -7,7 +7,7 @@ on:
     types: [opened, synchronize, reopened]
 
 env:
-  YOUR_PROJECT_KEY: FastFoodPessoas
+  YOUR_PROJECT_KEY: thiagolinoz_FastFoodPessoas
   YOUR_SONARCLOUD_ORGANIZATION: thiagolinoz
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
