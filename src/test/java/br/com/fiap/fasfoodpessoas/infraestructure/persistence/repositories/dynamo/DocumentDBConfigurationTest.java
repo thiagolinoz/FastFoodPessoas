@@ -1,11 +1,9 @@
-package br.com.fiap.fasfoodpessoas.infraestructure.persistence.repositories.mongo;
+package br.com.fiap.fasfoodpessoas.infraestructure.persistence.repositories.dynamo;
 
-import com.mongodb.client.MongoClient;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.mongodb.config.AbstractMongoClientConfiguration;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.util.ReflectionTestUtils;
 
@@ -13,13 +11,13 @@ import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest(classes = DocumentDBConfiguration.class)
+/*@SpringBootTest(classes = DocumentDBConfiguration.class)
 @TestPropertySource(properties = {
     "spring.data.mongodb.uri=mongodb://localhost:27017/test"
-})
+})*/
 class DocumentDBConfigurationTest {
 
-    private static final String DATABASE_NAME = "aplicacao_fiap";
+ /*   private static final String DATABASE_NAME = "aplicacao_fiap";
     private static final String FIELD_CONNECTION_STRING = "connectionString";
     private static final String TEST_MONGODB_URI = "mongodb://localhost:27017/test";
 
@@ -87,9 +85,9 @@ class DocumentDBConfigurationTest {
     @Test
     void deveUsarConnectionStringDoProperties() {
         assertNotNull(configuration);
-        
+
         String connectionString = (String) ReflectionTestUtils.getField(configuration, FIELD_CONNECTION_STRING);
-        
+
         assertNotNull(connectionString);
         assertTrue(connectionString.contains("mongodb://"));
     }
@@ -123,7 +121,7 @@ class DocumentDBConfigurationTest {
             assertNotNull(client);
         } catch (RuntimeException e) {
             // Esperado em alguns ambientes de teste
-            assertTrue(e.getMessage().contains("Erro ao configurar MongoDB client") || 
+            assertTrue(e.getMessage().contains("Erro ao configurar MongoDB client") ||
                       e.getMessage().contains("connection"));
         } finally {
             if (client != null) {
@@ -209,8 +207,8 @@ class DocumentDBConfigurationTest {
     @Test
     void deveConnectionStringSerInjetadaPorValue() throws NoSuchFieldException {
         var field = DocumentDBConfiguration.class.getDeclaredField(FIELD_CONNECTION_STRING);
-        
+
         assertNotNull(field);
         assertEquals(String.class, field.getType());
-    }
+    }*/
 }

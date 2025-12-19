@@ -4,22 +4,21 @@ import br.com.fiap.fasfoodpessoas.domain.enums.TipoPessoaEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbBean;
+import software.amazon.awssdk.enhanced.dynamodb.mapper.annotations.DynamoDbPartitionKey;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(collection = "pessoas")
+@DynamoDbBean
 public class PessoaEntity {
 
-    @Id
-    private String id;
     private String cdDocPessoa;
     private String nmPessoa;
     private TipoPessoaEnum tpPessoa;
     private String dsEmail;
 
+    @DynamoDbPartitionKey
     public String getCdDocPessoa() {
         return cdDocPessoa;
     }

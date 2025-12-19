@@ -4,31 +4,34 @@ import br.com.fiap.fasfoodpessoas.domain.models.PessoaModel;
 import br.com.fiap.fasfoodpessoas.domain.ports.out.PessoaRepositoryPort;
 import br.com.fiap.fasfoodpessoas.infraestructure.commons.mappers.PessoaMapper;
 import br.com.fiap.fasfoodpessoas.infraestructure.persistence.entities.PessoaEntity;
-import br.com.fiap.fasfoodpessoas.infraestructure.persistence.repositories.mongo.PessoaMongoDBRepository;
 import org.springframework.stereotype.Component;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
+import software.amazon.awssdk.enhanced.dynamodb.Key;
+import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 
 import java.util.Optional;
 
 @Component
 public class PessoaRepository implements PessoaRepositoryPort {
 
-    private final PessoaMongoDBRepository pessoaMongoDBRepository;
+    private final DynamoDbTable<PessoaEntity> tabelaPessoa;
 
 
-    public PessoaRepository(PessoaMongoDBRepository pessoaMongoDBRepository) {
-        this.pessoaMongoDBRepository = pessoaMongoDBRepository;
+    public PessoaRepository(DynamoDbEnhancedClient enhancedClient) {
+        this.tabelaPessoa = enhancedClient.table("Pessoas", TableSchema.fromBean(PessoaEntity.class));
     }
 
     @Override
     public PessoaModel cadastrarPessoa(PessoaModel pessoaModel) {
         PessoaEntity pessoaEntity = PessoaMapper.toEntity(pessoaModel);
-        pessoaMongoDBRepository.save(pessoaEntity);
+        tabelaPessoa.putItem(pessoaEntity);
         return PessoaMapper.toModel(pessoaEntity);
     }
 
     @Override
     public Optional<PessoaModel> buscarPessoaPorCpf(String cdDocPessoa) {
-        PessoaEntity pessoaEntity = pessoaMongoDBRepository.findByCdDocPessoa(cdDocPessoa);
+        PessoaEntity pessoaEntity = tabelaPessoa.getItem(Key.builder().partitionValue(cdDocPessoa).build());
         return Optional.ofNullable(pessoaEntity).map(PessoaMapper::toModel);
     }
 }
