@@ -13,8 +13,14 @@ import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 @Profile("local")
 public class DynamoDbInitializer {
 
+    private final DynamoDbEnhancedClient enhancedClient;
+
+    public DynamoDbInitializer(DynamoDbEnhancedClient enhancedClient) {
+        this.enhancedClient = enhancedClient;
+    }
+
     @EventListener(ApplicationReadyEvent.class)
-    public void setupTables(DynamoDbEnhancedClient enhancedClient) {
+    public void setupTables() {
         System.out.println(">>>> TENTANDO CRIAR TABELAS NO DYNAMO LOCAL <<<<");
         DynamoDbTable<PessoaEntity> table = enhancedClient.table("Pessoas", TableSchema.fromBean(PessoaEntity.class));
 

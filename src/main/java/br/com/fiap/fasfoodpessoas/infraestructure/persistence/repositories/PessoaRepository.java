@@ -19,7 +19,8 @@ public class PessoaRepository implements PessoaRepositoryPort {
 
 
     public PessoaRepository(DynamoDbEnhancedClient enhancedClient) {
-        this.tabelaPessoa = enhancedClient.table("Pessoas", TableSchema.fromBean(PessoaEntity.class));
+        TableSchema<PessoaEntity> schema = TableSchema.fromBean(PessoaEntity.class);
+        this.tabelaPessoa = enhancedClient.table("Pessoas", schema);
     }
 
     @Override
