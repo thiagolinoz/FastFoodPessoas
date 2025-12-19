@@ -7,11 +7,13 @@ on:
     types: [opened, synchronize, reopened]
 
 env:
-  YOUR_PROJECT_KEY: FastFoodPessoas
+  YOUR_PROJECT_KEY: thiagolinoz_FastFoodPessoas
   YOUR_SONARCLOUD_ORGANIZATION: thiagolinoz
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 jobs:
-  sonarcloud:
+  test:
+    name: Run tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -24,24 +26,28 @@ jobs:
           java-version: '21'
           cache: 'maven'
 
-      - name: Cache Sonar
-        uses: actions/cache@v4
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
+      - name: Run unit tests
+        run: mvn -B test
+        
+  sonar:
+    name: SonarCloud analysis
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - name: SonarCloud Action (autenticação / PR decoration)
-        uses: SonarSource/sonarcloud-github-action@v1
+      - name: Set up Java 21 and cache Maven deps
+        uses: actions/setup-java@v4
         with:
-          organization: "thiagolinoz"
-          token: ${{ secrets.SONAR_TOKEN }}
+          distribution: 'temurin'
+          java-version: '21'
+          cache: 'maven'
 
-      - name: Build and analyze with Maven
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Run Sonar analysis
         run: |
           mvn -B -DskipTests=true verify sonar:sonar \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-            -Dsonar.projectKey=env.YOUR_PROJECT_KEY \
-            -Dsonar.organization=env.YOUR_SONARCLOUD_ORGANIZATION
+            -Dsonar.login=${{ env.SONAR_TOKEN }} \
+            -Dsonar.projectKey=${{ env.YOUR_PROJECT_KEY }} \
+            -Dsonar.organization=${{ env.YOUR_SONARCLOUD_ORGANIZATION }}
