@@ -50,7 +50,7 @@ public class PessoaController {
             return  ResponseEntity.ok(pessoaResponseDto);
         }
 
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.noContent().build();
     }
 
     private PessoaModel toModel(PessoaRequestDto pessoaRequestDto) {
