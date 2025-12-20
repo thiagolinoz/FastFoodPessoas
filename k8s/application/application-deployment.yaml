@@ -26,12 +26,9 @@ spec:
             - containerPort: 8080
 
           env:
-            - name: DATASOURCE_URL
-              valueFrom:
-                secretKeyRef:
-                  name: app-secret
-                  key: DATASOURCE_URL
-            - name: AWS_ACCESS_KEY_ID
+            - name: AWS_REGION
+              value: "us-east-1"
+            - name: AWS_ACCESS_KEY_ID # comentar daqui p deploy sem action
               valueFrom:
                 secretKeyRef:
                   name: aws-academy-credentials
@@ -45,6 +42,10 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: aws-academy-credentials
-                  key: session-token
-            - name: AWS_REGION
-              value: "us-east-1"
+                  key: session-token # comentar ate aqui p deploy sem action
+#            - name: AWS_ACCESS_KEY_ID
+#              value: "ID_DA_TUA_CONTA_ACADEMY"
+#            - name: AWS_SECRET_ACCESS_KEY
+#              value: "SECRET_DA_TUA_CONTA_ACADEMY"
+#            - name: AWS_SESSION_TOKEN
+#              value: "TOKEN_MUITO_LONGO_DA_TUA_CONTA_ACADEMY"

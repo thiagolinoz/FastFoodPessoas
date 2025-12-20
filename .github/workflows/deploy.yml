@@ -6,7 +6,7 @@ on:
 
 env:
   EKS_CLUSTER_NAME: eks-postech-fiap-fastfood
-  ECR_REPOSITORY: postech-fiap-fastfood
+  ECR_REPOSITORY: postech-fiap-fastfood-pessoas
   AWS_REGION: us-east-1
 
 jobs:
@@ -64,8 +64,8 @@ jobs:
             --from-literal=secret-access-key="${{ secrets.AWS_SECRET_ACCESS_KEY }}" \
             --from-literal=session-token="${{ secrets.AWS_SESSION_TOKEN }}" \
             --dry-run=client -o yaml | kubectl apply -f -
+          
           kubectl apply -f ./k8s/configmap.yaml
-          kubectl apply -f ./k8s/application/application-secrets.yaml
           kubectl apply -f ./k8s/application/application-service.yaml
           kubectl apply -f ./k8s/application/application-deployment.yaml
           kubectl get services app-service
