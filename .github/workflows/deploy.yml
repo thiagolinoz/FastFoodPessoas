@@ -52,10 +52,20 @@ jobs:
 
       - name: Deploy no Kubernetes
         run: |
+          # substitui o nome do repo
           sed -i "s|REPO_ECR|${{ steps.login-ecr.outputs.registry }}/${{ env.ECR_REPOSITORY }}:latest|g" ./k8s/application/application-deployment.yaml
+          
+          # 1. Configura o contexto do EKS
+          aws eks update-kubeconfig --region us-east-1 --name ${{ env.EKS_CLUSTER_NAME }}
+
+          # 2. Atualiza o Secret no K8s com os valores do GitHub Secrets
+          kubectl create secret generic aws-academy-credentials \
+            --from-literal=access-key-id="${{ secrets.AWS_ACCESS_KEY_ID }}" \
+            --from-literal=secret-access-key="${{ secrets.AWS_SECRET_ACCESS_KEY }}" \
+            --from-literal=session-token="${{ secrets.AWS_SESSION_TOKEN }}" \
+            --dry-run=client -o yaml | kubectl apply -f -
           kubectl apply -f ./k8s/configmap.yaml
           kubectl apply -f ./k8s/application/application-secrets.yaml
           kubectl apply -f ./k8s/application/application-service.yaml
-          kubectl apply -f ./k8s/application/service-account.yaml
           kubectl apply -f ./k8s/application/application-deployment.yaml
           kubectl get services app-service

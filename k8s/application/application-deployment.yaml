@@ -12,7 +12,6 @@ spec:
       labels:
         app: java-app
     spec:
-      serviceAccountName: fastfood-pessoas-sa
       containers:
         - name: java-app
           image: REPO_ECR
@@ -32,5 +31,20 @@ spec:
                 secretKeyRef:
                   name: app-secret
                   key: DATASOURCE_URL
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: aws-academy-credentials
+                  key: access-key-id
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: aws-academy-credentials
+                  key: secret-access-key
+            - name: AWS_SESSION_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: aws-academy-credentials
+                  key: session-token
             - name: AWS_REGION
               value: "us-east-1"
