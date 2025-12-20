@@ -31,3 +31,11 @@ spec:
                 secretKeyRef:
                   name: app-secret
                   key: DATASOURCE_URL
+            - name: AWS_ACCESS_KEY_ID
+              value: "ASIAYS2NRLYYNZ67RLFP"
+            - name: AWS_SECRET_ACCESS_KEY
+              value: "0dEQ1ra7hqKcxtmSPeD2C/++f9gyO9oECBewk0Ra"
+            - name: AWS_SESSION_TOKEN
+              value: "IQoJb3JpZ2luX2VjEPz//////////wEaCXVzLXdlc3QtMiJGMEQCIGFW+Sp4UiaqQ/qlp7RcgpywOAN4YirfzF+3YG5+pTe5AiACaAikL4MW5DrWuvpVSduMDZTuR2LSxNmrI8HFnzkzeCq0AgjF//////////8BEAAaDDU5MDE4Mzc1MTIxNiIM2p36BeZ88zyQszU4KogCFXvjrvxUUd0F8x0QZM49Fr3gH5gs/ysHbGQ4LqgL80ly9mRBM9OgzUK49KQwVYV/dAfM3SBCE39cRAcuy5KI3jxFxRY8DaHKidQPlUlShgfovBL/tXPzXdw1MoCqHhGGYm2mKJgLTdczcxvxt6P6AlgRNte0+Td4RVoAtlejETbOFFHI8iZ4oEKUNguar1dRA23slBEOpvLLVHkwE8BLJuq8K4ut4qxQ7cwNQjkcKxHj1zB5xq/KVSoT6TSJuZStcuyZtg/RcGRKiHiRs+CEgSYFC2NfOgjumdc95Ydi5AF/n0afVqWS0t6PkRqKl8OatCC5N+3CBPHDNBMarBsxx7veF+XWEsuPMJmgmsoGOp4B1FN0xAaB/AWzXkJeVVVm1mcGbuvDYdsQWXE1YphZe30F4/sxsI9lMF/DGN+yoMsQ3KzM3kf/8rABzYrm0yGGxy2EOJGeuJrGo1hplgOhCSXNoYYpvekMVPSNrv2hR602VfRODPCHTJwGXw8F3+9bNgbeSvLMgEy2TYQBIsGCXz2xro1zYJRMibIm7MQTlrjUB6GJc9RqnOzbnSPAieQ=" # Não esqueça deste!
+            - name: AWS_REGION
+              value: "us-east-1"
