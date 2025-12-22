@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: java-app
-          image: REPO_ECR
+          image: thiagolinoz/fastfood-pessoas:latest #REPO_ECR
           resources:
             requests:
               cpu: "100m" # Solicita 0.1 de um core de CPU
@@ -28,24 +28,24 @@ spec:
           env:
             - name: AWS_REGION
               value: "us-east-1"
-            - name: AWS_ACCESS_KEY_ID # comentar daqui p deploy sem action
-              valueFrom:
-                secretKeyRef:
-                  name: aws-academy-credentials
-                  key: access-key-id
-            - name: AWS_SECRET_ACCESS_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: aws-academy-credentials
-                  key: secret-access-key
-            - name: AWS_SESSION_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: aws-academy-credentials
-                  key: session-token # comentar ate aqui p deploy sem action
-#            - name: AWS_ACCESS_KEY_ID
-#              value: "ID_DA_TUA_CONTA_ACADEMY"
+#            - name: AWS_ACCESS_KEY_ID # comentar daqui p deploy sem action
+#              valueFrom:
+#                secretKeyRef:
+#                  name: aws-academy-credentials
+#                  key: access-key-id
 #            - name: AWS_SECRET_ACCESS_KEY
-#              value: "SECRET_DA_TUA_CONTA_ACADEMY"
+#              valueFrom:
+#                secretKeyRef:
+#                  name: aws-academy-credentials
+#                  key: secret-access-key
 #            - name: AWS_SESSION_TOKEN
-#              value: "TOKEN_MUITO_LONGO_DA_TUA_CONTA_ACADEMY"
+#              valueFrom:
+#                secretKeyRef:
+#                  name: aws-academy-credentials
+#                  key: session-token # comentar ate aqui p deploy sem action
+            - name: AWS_ACCESS_KEY_ID
+              value: "ID_DA_TUA_CONTA_ACADEMY"
+            - name: AWS_SECRET_ACCESS_KEY
+              value: "SECRET_DA_TUA_CONTA_ACADEMY"
+            - name: AWS_SESSION_TOKEN
+              value: "TOKEN_DA_TUA_CONTA_ACADEMY"
