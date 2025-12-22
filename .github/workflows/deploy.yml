@@ -2,7 +2,7 @@ name: CI/CD com Dockerfile
 
 on:
   push:
-    branches: [main, master]
+    branches: [main, master, dynamo]
 
 env:
   EKS_CLUSTER_NAME: eks-postech-fiap-fastfood

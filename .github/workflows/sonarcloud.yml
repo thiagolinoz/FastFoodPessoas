@@ -2,7 +2,7 @@ name: SonarCloud Scan (Maven, Java 21)
 
 on:
   push:
-    branches: ["main", "master"]
+    branches: ["main", "master", "dynamo"]
   pull_request:
     types: [opened, synchronize, reopened]
 
