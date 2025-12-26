@@ -19,7 +19,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = { CpfCadastradoException.class })
-    protected ErrorDto handleCpfCadastradoException(CpfCadastradoException ex, HttpServletRequest req) {
+    public ErrorDto handleCpfCadastradoException(CpfCadastradoException ex, HttpServletRequest req) {
         List<ErrorMessageDto> errors = new ArrayList<>();
         ErrorMessageDto error = new ErrorMessageDto(ex.getMessage());
         errors.add(error);
