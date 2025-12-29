@@ -26,9 +26,15 @@ public class DynamoDbInitializer {
     @EventListener(ApplicationReadyEvent.class)
     public void setupTables() {
         if (!shouldCreate) return;
-
+        System.out.println(">>>> TENTANDO CRIAR TABELAS NO DYNAMO LOCAL <<<<");
         DynamoDbTable<PessoaEntity> table = enhancedClient.table("Pessoas", TableSchema.fromBean(PessoaEntity.class));
 
-        table.createTable();
+        try {
+            table.createTable();
+            System.out.println("Infraestrutura local do DynamoDB pronta.");
+            System.out.println(">>>> TABELA PESSOAS CRIADA COM SUCESSO <<<<");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
