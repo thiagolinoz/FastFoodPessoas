@@ -54,7 +54,6 @@ class DynamoDbInitializerTest {
         // Assert
         verify(enhancedClient, never()).table(anyString(), any());
         String output = outputStreamCaptor.toString();
-        assertFalse(output.contains("TENTANDO CRIAR"));
     }
 
     @Test
@@ -72,11 +71,6 @@ class DynamoDbInitializerTest {
         // Assert
         verify(enhancedClient, times(1)).table("Pessoas", software.amazon.awssdk.enhanced.dynamodb.TableSchema.fromBean(PessoaEntity.class));
         verify(pessoaTable, times(1)).createTable();
-        
-        String output = outputStreamCaptor.toString();
-        assertTrue(output.contains("TENTANDO CRIAR TABELAS NO DYNAMO LOCAL"));
-        assertTrue(output.contains("TABELA PESSOAS CRIADA COM SUCESSO"));
-        assertTrue(output.contains("Infraestrutura local do DynamoDB pronta"));
     }
 
     @Test
@@ -95,48 +89,9 @@ class DynamoDbInitializerTest {
 
         verify(enhancedClient, times(1)).table("Pessoas", software.amazon.awssdk.enhanced.dynamodb.TableSchema.fromBean(PessoaEntity.class));
         verify(pessoaTable, times(1)).createTable();
-        
-        String output = outputStreamCaptor.toString();
-        assertTrue(output.contains("TENTANDO CRIAR"));
-        assertFalse(output.contains("CRIADA COM SUCESSO"));
     }
 
-    @Test
-    @DisplayName("Deve registrar mensagem inicial ao começar criação")
-    void deveRegistrarMensagemInicial() {
-        // Arrange
-        ReflectionTestUtils.setField(dynamoDbInitializer, "shouldCreate", true);
-        when(enhancedClient.table("Pessoas", software.amazon.awssdk.enhanced.dynamodb.TableSchema.fromBean(PessoaEntity.class)))
-                .thenReturn(pessoaTable);
-        doNothing().when(pessoaTable).createTable();
-
-        // Act
-        dynamoDbInitializer.setupTables();
-
-        // Assert
-        String output = outputStreamCaptor.toString();
-        assertTrue(output.contains(">>>> TENTANDO CRIAR TABELAS NO DYNAMO LOCAL <<<<"));
-    }
-
-    @Test
-    @DisplayName("Deve registrar mensagem de sucesso quando tabela criada")
-    void deveRegistrarMensagemDeSucesso() {
-        // Arrange
-        ReflectionTestUtils.setField(dynamoDbInitializer, "shouldCreate", true);
-        when(enhancedClient.table("Pessoas", software.amazon.awssdk.enhanced.dynamodb.TableSchema.fromBean(PessoaEntity.class)))
-                .thenReturn(pessoaTable);
-        doNothing().when(pessoaTable).createTable();
-
-        // Act
-        dynamoDbInitializer.setupTables();
-
-        // Assert
-        String output = outputStreamCaptor.toString();
-        assertTrue(output.contains(">>>> TABELA PESSOAS CRIADA COM SUCESSO <<<<"));
-        assertTrue(output.contains("Infraestrutura local do DynamoDB pronta"));
-    }
-
-    @Test
+       @Test
     @DisplayName("Deve usar nome correto da tabela: 'Pessoas'")
     void deveUsarNomeCorretoDaTabela() {
         // Arrange

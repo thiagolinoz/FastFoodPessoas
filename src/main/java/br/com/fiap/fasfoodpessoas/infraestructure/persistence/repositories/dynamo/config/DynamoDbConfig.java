@@ -22,9 +22,12 @@ public class DynamoDbConfig {
 
     @Bean
     public DynamoDbClient dynamoDbClient() {
+        DefaultCredentialsProvider provider = DefaultCredentialsProvider.builder()
+                .build();
+
         DynamoDbClientBuilder builder = DynamoDbClient.builder()
                 .region(Region.of(region))
-                .credentialsProvider(DefaultCredentialsProvider.create());
+                .credentialsProvider(provider);
 
         if (!endpoint.contains("amazonaws.com")) {
             builder.endpointOverride(URI.create(endpoint));
