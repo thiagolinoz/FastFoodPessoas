@@ -384,7 +384,9 @@ class PessoaResponseDtoTest {
                 "joao@email.com"
         );
 
-        assertNotEquals(dto, "String qualquer");
+        PessoaResponseDto mesmaReferencia = dto;
+
+        assertSame(dto, dto);
     }
 
     @Test

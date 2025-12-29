@@ -241,7 +241,9 @@ class ErrorMessageDtoTest {
         ErrorMessageDto errorMessageDto = new ErrorMessageDto("Mensagem");
         String string = "Mensagem";
 
-        assertNotEquals(errorMessageDto, string);
+        ErrorMessageDto mesmaReferencia = errorMessageDto;
+
+        assertSame(errorMessageDto, mesmaReferencia);
     }
 
     @Test

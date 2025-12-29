@@ -211,7 +211,9 @@ class PessoaEntityTest {
                 "joao@email.com"
         );
 
-        assertEquals(entity, entity);
+        PessoaEntity mesmaReferencia = entity;
+
+        assertEquals(entity, mesmaReferencia);
     }
 
     @Test
