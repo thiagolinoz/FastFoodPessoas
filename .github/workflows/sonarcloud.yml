@@ -7,8 +7,8 @@ on:
     types: [opened, synchronize, reopened]
 
 env:
-  YOUR_PROJECT_KEY: thiagolinoz_FastFoodPessoas
-  YOUR_SONARCLOUD_ORGANIZATION: thiagolinoz
+  PROJECT_KEY: thiagolinoz_FastFoodPessoas
+  SONARCLOUD_ORGANIZATION: thiagolinoz
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 jobs:
@@ -29,12 +29,9 @@ jobs:
           cache: 'maven'
 
       - name: Build, Test and Analyze
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           mvn -B clean verify sonar:sonar \
-            -Dsonar.projectKey=${{ env.YOUR_PROJECT_KEY }} \
-            -Dsonar.organization=${{ env.YOUR_SONARCLOUD_ORGANIZATION }} \
+            -Dsonar.projectKey=${{ env.PROJECT_KEY }} \
+            -Dsonar.organization=${{ env.SONARCLOUD_ORGANIZATION }} \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
