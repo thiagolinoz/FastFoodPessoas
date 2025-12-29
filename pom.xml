@@ -36,7 +36,7 @@
         <sonar.host.url>http://localhost:9001</sonar.host.url>
         <sonar.projectKey>FastFoodPessoas</sonar.projectKey>
         <sonar.projectName>FastFoodPessoas</sonar.projectName>
-        <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.coverage.jacoco.xmlReportPaths>target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
     </properties>
     <dependencies>
         <dependency>
