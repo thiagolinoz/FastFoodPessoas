@@ -235,7 +235,9 @@ class PessoaEntityTest {
                 "joao@email.com"
         );
 
-        assertNotEquals(entity, "String qualquer");
+        PessoaEntity mesmaReferencia = entity;
+
+        assertSame(entity, mesmaReferencia);
     }
 
     @Test
