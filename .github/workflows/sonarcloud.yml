@@ -2,39 +2,36 @@ name: SonarCloud Scan (Maven, Java 21)
 
 on:
   push:
-    branches: ["main", "master", "feature/apenasPessoas"]
+    branches: ["main", "master", "dynamo"]
   pull_request:
     types: [opened, synchronize, reopened]
 
 env:
-  YOUR_PROJECT_KEY: thiagolinoz_FastFoodPessoas
-  YOUR_SONARCLOUD_ORGANIZATION: thiagolinoz
+  PROJECT_KEY: thiagolinoz_FastFoodPessoas
+  SONARCLOUD_ORGANIZATION: thiagolinoz
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 jobs:
-  sonarcloud:
+  build-and-analyze:
+    name: Build and SonarCloud Analysis
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Set up Java 21 and cache Maven deps
+      - name: Set up Java 21
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '21'
           cache: 'maven'
 
-      - name: Cache Sonar
-        uses: actions/cache@v4
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-
-      - name: Build and analyze with Maven
+      - name: Build, Test and Analyze
         run: |
-          mvn -B -DskipTests=true verify sonar:sonar \
+          mvn -B clean verify sonar:sonar \
+            -Dsonar.projectKey=${{ env.PROJECT_KEY }} \
+            -Dsonar.organization=${{ env.SONARCLOUD_ORGANIZATION }} \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=${{ env.SONAR_TOKEN }} \
-            -Dsonar.projectKey=${{ env.YOUR_PROJECT_KEY }} \
-            -Dsonar.organization=${{ env.YOUR_SONARCLOUD_ORGANIZATION }}
+            -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml

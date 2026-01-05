@@ -7,7 +7,7 @@ public record ErrorDto(
         LocalDateTime timestamp,
         Integer status,
         String message,
-        List<?> errors,
+        List<ErrorMessageDto> errors,
         String path) {
 
     public ErrorDto(LocalDateTime timestamp, Integer status, String message, String path) {
